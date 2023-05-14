@@ -1,0 +1,16 @@
+COMMANDS:
+  swallow <u>treasure<r>, swl <u>treasure<r>
+    Store treasure. <u>treasure<r> may be a relative path or a named treasure already known by Mimic. The 
+    path is used both to find the directory/file and to store its copy inside Mimic chest.
+    
+    --to <u>path<r>: specify a different path to store the treasure
+    --from <u>path<r>: specify a different path from where to copy the treasure
+    -n <u>name<r>, --name <u>name<r>: save the treasure with the given name, or update config if it already 
+      exists
+    
+  spit <u>treasure<r>, spt <u>treasure<r>
+    Retrieve treasure. <u>treasure<r> may be a relative path or a named treasure already known by Mimic. The 
+    path is used both to find the directory/file inside Mimic chest and to known where to put its copy.
+
+    --to <u>path<r>: specify a different path to put the treasure's copy
+    --from <u>path<r>: specify a different path from where to find the treasure
