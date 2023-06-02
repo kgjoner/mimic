@@ -1,5 +1,5 @@
 use crate::constants::BASE_PATH;
-use std::{collections::HashMap, error::Error, path::Path, fmt::Display};
+use std::{collections::HashMap, env, error::Error, fmt::Display, path::Path};
 
 #[derive(Debug)]
 pub struct TreasureRecords {
@@ -102,7 +102,11 @@ impl TreasurePaths {
     }
 
     pub fn compartment_full_path(&self, chest: &str) -> String {
-        format!("{BASE_PATH}/chests/{chest}/{}", self.compartment_path)
+        format!(
+            "{}/{BASE_PATH}/chests/{chest}/{}",
+            env::var("HOME").unwrap(),
+            self.compartment_path
+        )
     }
 }
 
