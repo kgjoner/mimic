@@ -1,5 +1,9 @@
 use std::{error::Error, fmt::Display};
 
+pub struct HelpDto<'a> {
+    pub queried_command: Option<&'a str>
+}
+
 pub struct PathDto<'a> {
     pub chest: &'a str,
     pub treasure_name_or_path: &'a str,

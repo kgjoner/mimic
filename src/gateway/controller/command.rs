@@ -1,6 +1,6 @@
 use super::{Action, Config, Flags};
 use crate::{
-    app::{PathDto, PathMods, TreasureDto, TreasureMods},
+    app::{HelpDto, PathDto, PathMods, TreasureDto, TreasureMods},
     gateway::presenter::NormalizedError,
 };
 
@@ -51,6 +51,14 @@ impl Command {
         } else {
             Err(NormalizedError::EmptyAction(None))
         }
+    }
+
+    pub fn to_help_dto<'a>(&'a self) -> Result<HelpDto, NormalizedError> {
+        let queried_command = self.action_args.get(0);
+
+        Ok(HelpDto {
+            queried_command: queried_command.map(|x| &**x),
+        })
     }
 
     pub fn to_path_dto<'a>(&'a self, config: &'a Config) -> Result<PathDto, NormalizedError> {

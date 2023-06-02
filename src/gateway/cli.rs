@@ -4,8 +4,9 @@ use super::{
 };
 use crate::{
     app::{
-        list_treasures::ListTreasuresInteractor, name_treasure::NameTreasureInteractor,
-        spit::SpitInteractor, swallow::SwallowInteractor, Interactor,
+        help::HelpInteractor, list_treasures::ListTreasuresInteractor,
+        name_treasure::NameTreasureInteractor, spit::SpitInteractor, swallow::SwallowInteractor,
+        Interactor,
     },
     domain::{Repos, TreasureRecordsRepoInterface},
 };
@@ -33,6 +34,7 @@ impl CliGateway {
         let command = Command::parse(args)?;
 
         match command.action {
+            Action::Help => self.execute(HelpInteractor::new(), command.to_help_dto()?),
             Action::Swallow => self.execute(
                 SwallowInteractor::new(&self.repos),
                 command.to_path_dto(&self.config)?,
