@@ -10,7 +10,7 @@ impl NormalizedSuccess {
   }
 
   pub fn print(&self) {
-      let message = &format!("{:?}", self.0);
+      let message = &format!("{}", self.0);
       print_message(message, false);
   }
 }
