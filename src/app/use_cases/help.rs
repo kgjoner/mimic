@@ -1,5 +1,5 @@
 use crate::app::{HelpDto, Interactor};
-use std::{error::Error, fmt::Display, fs};
+use std::{error::Error, fmt::Display};
 
 pub struct HelpInteractor;
 
@@ -16,7 +16,7 @@ impl<'a> Interactor<'a> for HelpInteractor {
         &self,
         HelpDto { queried_command }: HelpDto,
     ) -> Result<Box<dyn Display>, Box<dyn Error>> {
-        let doc = fs::read_to_string("doc.txt")?;
+        let doc = include_str!("../../../doc.txt");
 
         let mut result = String::new();
 
