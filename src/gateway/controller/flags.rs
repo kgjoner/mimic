@@ -7,10 +7,11 @@ pub struct Flags {
     map: HashMap<String, Option<String>>,
 }
 
-const FLAGS_WITH_REQUIRED_ARG: [&str; 3] = [
+const FLAGS_WITH_REQUIRED_ARG: [&str; 4] = [
     "from",
     "to",
     "name",
+    "outter",
 ];
 
 impl Flags {
