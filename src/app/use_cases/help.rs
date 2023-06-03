@@ -16,7 +16,7 @@ impl<'a> Interactor<'a> for HelpInteractor {
         &self,
         HelpDto { queried_command }: HelpDto,
     ) -> Result<Box<dyn Display>, Box<dyn Error>> {
-        let doc = include_str!("../../../doc.txt");
+        let doc = include_str!("../../../assets/doc.txt");
 
         let mut result = String::new();
 
