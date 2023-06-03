@@ -18,3 +18,18 @@ COMMANDS:
 
     --to <u>path<r>: specify a different path to put the treasure's copy
     --from <u>path<r>: specify a different path from where to find the treasure
+
+==============================================================================
+  treasure name <u>treasure_name<r> <u>treasure_path<r>
+------------------------------------------------------------------------------
+    Make Mimic memorize the <u>treasure_path<r> as being <u>treasure_name<r>. From now on you will be
+    able to use the name instead of the path in swallow and spit commands.
+
+    --outter <u>path<r>: specify a different path from where to find the treasure before swallow it
+      and to where spit it.
+
+==============================================================================
+  treasure list
+------------------------------------------------------------------------------
+    List all treasure names memorized by Mimic with their paths. The first one is the path to the
+    inner compartment; the second one is the outter path.
