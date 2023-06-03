@@ -46,7 +46,9 @@ impl<'a> Interactor<'a> for HelpInteractor {
               result = format!("{:?} is an invalid command", cmd);
             }
         } else {
-            result = doc.to_string();
+            result = format!("<talk>O'course I'mma help'ya...<r>
+
+{}", doc.to_string());
         }
 
         Ok(Box::new(result))
