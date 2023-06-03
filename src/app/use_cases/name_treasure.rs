@@ -42,6 +42,7 @@ impl<'a> Interactor<'a> for NameTreasureInteractor<'a> {
             Some(outter_target_path),
         )?;
 
-        Ok(Box::new(""))
+        let result = format!("<talk>Alright, that's a good name. I know {} now!<r>", treasure_name);
+        Ok(Box::new(result))
     }
 }

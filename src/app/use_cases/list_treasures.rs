@@ -1,4 +1,7 @@
-use crate::{domain::{TreasureRecordsRepoInterface, Repos}, app::Interactor};
+use crate::{
+    app::Interactor,
+    domain::{Repos, TreasureRecordsRepoInterface},
+};
 use std::{error::Error, fmt::Display};
 
 pub struct ListTreasuresInteractor<'a> {
@@ -18,6 +21,12 @@ impl<'a> Interactor<'a> for ListTreasuresInteractor<'a> {
 
     fn execute(&self, chest: &str) -> Result<Box<dyn Display>, Box<dyn Error>> {
         let result = self.treasure_records_repo.get_records(chest)?;
+        let result = format!(
+            "<talk>Yargh! That's all I know...<r>
+
+        {}",
+            result
+        );
         Ok(Box::new(result))
     }
 }

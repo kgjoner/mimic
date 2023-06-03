@@ -57,6 +57,6 @@ impl<'a> Interactor<'a> for SpitInteractor<'a> {
             outter_target_path,
         )?;
 
-        Ok(Box::new(""))
+        Ok(Box::new("<talk>Yuck! There we go... Can I bite something now?<r>"))
     }
 }

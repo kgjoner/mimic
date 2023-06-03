@@ -58,6 +58,6 @@ impl<'a> Interactor<'a> for SwallowInteractor<'a> {
             compartment_full_path,
         )?;
 
-        Ok(Box::new(""))
+        Ok(Box::new("<talk>Yum... Delicious!<r>"))
     }
 }
