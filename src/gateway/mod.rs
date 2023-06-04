@@ -1,5 +1,2 @@
-mod cli;
-pub use cli::*;
-
-pub mod controller;
-pub mod presenter;
+pub mod cli;
+pub use cli::CliGateway;

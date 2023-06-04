@@ -1,4 +1,4 @@
-use crate::gateway::presenter::NormalizedError;
+use crate::gateway::cli::presenter::NormalizedError;
 
 #[derive(Debug)]
 pub enum Action {

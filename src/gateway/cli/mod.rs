@@ -1,7 +1,9 @@
-use super::{
-    controller::{Action, Command, Config, TreasureSubAction},
-    presenter::{NormalizedError, NormalizedSuccess},
-};
+mod controller;
+pub use controller::{Action, Command, Config, TreasureSubAction};
+
+mod presenter;
+pub use presenter::{NormalizedError, NormalizedSuccess};
+
 use crate::{
     app::{
         help::HelpInteractor, list_treasures::ListTreasuresInteractor,

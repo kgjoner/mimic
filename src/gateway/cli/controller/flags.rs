@@ -1,6 +1,5 @@
 use std::collections::HashMap;
-
-use crate::gateway::presenter::NormalizedError;
+use crate::gateway::cli::presenter::NormalizedError;
 
 #[derive(Debug)]
 pub struct Flags {

@@ -1,7 +1,7 @@
 use super::{Action, Config, Flags};
 use crate::{
     app::{HelpDto, PathDto, PathMods, TreasureDto, TreasureMods},
-    gateway::presenter::NormalizedError,
+    gateway::cli::presenter::NormalizedError,
 };
 
 #[derive(Debug)]
