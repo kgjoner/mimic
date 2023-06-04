@@ -6,9 +6,8 @@ pub use presenter::{NormalizedError, NormalizedSuccess};
 
 use crate::{
     app::{
-        help::HelpInteractor, list_treasures::ListTreasuresInteractor,
-        name_treasure::NameTreasureInteractor, spit::SpitInteractor, swallow::SwallowInteractor,
-        Interactor,
+        HelpInteractor, Interactor, ListTreasuresInteractor, NameTreasureInteractor,
+        SpitInteractor, SwallowInteractor,
     },
     domain::{Repos, TreasureRecordsRepoInterface},
 };

@@ -1,5 +1,3 @@
-use std::{error::Error, fmt::Display};
-
 pub struct HelpDto<'a> {
     pub queried_command: Option<&'a str>
 }
@@ -24,11 +22,4 @@ pub struct TreasureDto<'a> {
 
 pub struct TreasureMods<'a> {
     pub outter_target_path: &'a Option<String>,
-}
-
-
-pub trait Interactor<'a> {
-    type Input;
-
-    fn execute(&self, input: Self::Input) -> Result<Box<dyn Display>, Box<dyn Error>>;
 }
