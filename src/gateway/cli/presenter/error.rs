@@ -37,8 +37,8 @@ impl NormalizedError {
         format!(
             "\
 <talk>{talk}<r>
-{info}
-"
+
+{info}"
         )
     }
 
