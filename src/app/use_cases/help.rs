@@ -34,8 +34,18 @@ impl<'a> Interactor<'a> for HelpInteractor {
                     if next_line == None {
                         break;
                     }
-                    if next_line.unwrap().contains(cmd) {
-                        is_capturing = true;
+
+                    if cmd.contains(" ") {
+                        if next_line.unwrap().contains(cmd) {
+                            is_capturing = true;
+                        }
+                    } else {
+                        for word in next_line.unwrap().split(" ") {
+                            if word == cmd {
+                                is_capturing = true;
+                                break;
+                            }
+                        }
                     }
                 } else if is_capturing {
                     result += &*format!("\n{line}");
@@ -43,12 +53,15 @@ impl<'a> Interactor<'a> for HelpInteractor {
             }
 
             if result.is_empty() {
-              result = format!("{:?} is an invalid command", cmd);
+                result = format!("{:?} is an invalid command", cmd);
             }
         } else {
-            result = format!("<talk>O'course I'mma help'ya...<r>
+            result = format!(
+                "<talk>O'course I'mma help'ya...<r>
 
-{}", doc.to_string());
+{}",
+                doc.to_string()
+            );
         }
 
         Ok(Box::new(result))
