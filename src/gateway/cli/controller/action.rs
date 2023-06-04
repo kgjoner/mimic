@@ -14,23 +14,27 @@ impl Action {
         F: FnOnce() -> Option<String>,
     {
         if action_str.is_empty() {
-            return Err(NormalizedError::EmptyAction(None));
+            return Err(NormalizedError::EmptyAction(get_error_tip_msg(None, None)));
         }
 
         match &action_str.to_lowercase()[..] {
             "help" => Ok(Action::Help),
-            "swallow" => Ok(Action::Swallow),
-            "swl" => Ok(Action::Swallow),
-            "spit" => Ok(Action::Spit),
-            "spt" => Ok(Action::Spit),
+            "swallow" | "swl" => Ok(Action::Swallow),
+            "spit" | "spt" => Ok(Action::Spit),
             "treasure" => match get_subaction() {
                 Some(s) => {
                     let subaction = TreasureSubAction::try_new(&s)?;
                     Ok(Action::Treasure(subaction))
                 }
-                None => Err(NormalizedError::EmptyAction(None)),
+                None => Err(NormalizedError::EmptyAction(get_error_tip_msg(
+                    None,
+                    Some("treasure"),
+                ))),
             },
-            _ => Err(NormalizedError::UnknownAction(None)),
+            unknown_action => Err(NormalizedError::UnknownAction(get_error_tip_msg(
+                Some(unknown_action),
+                None,
+            ))),
         }
     }
 }
@@ -50,7 +54,30 @@ impl TreasureSubAction {
         match &subaction_str[..] {
             "list" => Ok(TreasureSubAction::List),
             "name" => Ok(TreasureSubAction::Name),
-            _ => Err(NormalizedError::EmptyAction(None)),
+            unknown_subaction => Err(NormalizedError::UnknownAction(get_error_tip_msg(
+                Some(unknown_subaction),
+                Some("treasure"),
+            ))),
         }
     }
+}
+
+/* =========================================================
+UTILS
+========================================================= */
+
+fn get_error_tip_msg(unknown_input: Option<&str>, parent_action: Option<&str>) -> Option<String> {
+    let mut msg = "Call <u>help<r> to check available commands".to_string();
+
+    if let Some(action) = parent_action {
+        msg = format!("{} for <u>{}<r> action.", msg, action);
+    } else {
+        msg += ".";
+    }
+
+    if let Some(input) = unknown_input {
+        msg = format!("<u>{input}<r> is not a valid command. {}", msg);
+    }
+
+    Some(msg)
 }
