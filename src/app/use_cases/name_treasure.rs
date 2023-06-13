@@ -1,6 +1,6 @@
 use crate::{
-    app::{Interactor, TreasureDto, TreasureMods},
-    domain::{TreasureRecordsRepoInterface, Repos},
+    app::{Interactor, TreasureDto},
+    domain::{Repos, TreasureRecordsRepoInterface},
 };
 use std::{error::Error, fmt::Display};
 
@@ -19,17 +19,16 @@ impl<'a> NameTreasureInteractor<'a> {
 impl<'a> Interactor<'a> for NameTreasureInteractor<'a> {
     type Input = TreasureDto<'a>;
 
-    fn execute(
-        &self,
-        TreasureDto {
+    fn execute(&self, input: TreasureDto) -> Result<Box<dyn Display>, Box<dyn Error>> {
+        let TreasureDto {
             chest,
             treasure_name,
             treasure_path,
-            mods: TreasureMods { outter_target_path },
-        }: TreasureDto,
-    ) -> Result<Box<dyn Display>, Box<dyn Error>> {
+            mods,
+        } = input;
+
         let compartment_path = treasure_path.to_string();
-        let outter_target_path = if let Some(p) = outter_target_path {
+        let outter_target_path = if let Some(p) = mods.outter_target_path {
             p.to_string()
         } else {
             treasure_path.to_string()
@@ -42,7 +41,10 @@ impl<'a> Interactor<'a> for NameTreasureInteractor<'a> {
             Some(outter_target_path),
         )?;
 
-        let result = format!("<talk>Alright, that's a good name. I know {} now!<r>", treasure_name);
+        let result = format!(
+            "<talk>Alright, that's a good name. I know {} now!<r>",
+            treasure_name
+        );
         Ok(Box::new(result))
     }
 }

@@ -12,10 +12,8 @@ impl HelpInteractor {
 impl<'a> Interactor<'a> for HelpInteractor {
     type Input = HelpDto<'a>;
 
-    fn execute(
-        &self,
-        HelpDto { queried_command }: HelpDto,
-    ) -> Result<Box<dyn Display>, Box<dyn Error>> {
+    fn execute(&self, input: HelpDto) -> Result<Box<dyn Display>, Box<dyn Error>> {
+        let HelpDto { queried_command } = input;
         let doc = include_str!("../../../assets/doc.txt");
 
         let mut result = String::new();

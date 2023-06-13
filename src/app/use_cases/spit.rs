@@ -1,8 +1,8 @@
 use crate::{
-    app::{PathDto, PathMods, Interactor},
+    app::{Interactor, PathDto},
     domain::{Repos, TreasurePaths, TreasureRecordsRepoInterface},
 };
-use std::{error::Error, fs, fmt::Display, path::Path};
+use std::{error::Error, fmt::Display, fs, path::Path};
 
 pub struct SpitInteractor<'a> {
     treasure_records_repo: &'a Box<dyn TreasureRecordsRepoInterface>,
@@ -19,14 +19,13 @@ impl<'a> SpitInteractor<'a> {
 impl<'a> Interactor<'a> for SpitInteractor<'a> {
     type Input = PathDto<'a>;
 
-    fn execute(
-        &self,
-        PathDto {
+    fn execute(&self, input: PathDto) -> Result<Box<dyn Display>, Box<dyn Error>> {
+        let PathDto {
             chest,
             treasure_name_or_path,
-            mods: PathMods { from, to, name:_ },
-        }: PathDto,
-    ) -> Result<Box<dyn Display>, Box<dyn Error>> {
+            mods,
+        } = input;
+
         let records = self.treasure_records_repo.get_records(chest)?;
 
         let mut paths = if records.is_listed(treasure_name_or_path) {
@@ -40,10 +39,10 @@ impl<'a> Interactor<'a> for SpitInteractor<'a> {
             }
         };
 
-        if let Some(from) = from {
+        if let Some(from) = mods.from {
             paths.compartment_path = from.to_string();
         }
-        if let Some(to) = to {
+        if let Some(to) = mods.to {
             paths.outter_target_path = to.to_string();
         }
 
@@ -52,11 +51,10 @@ impl<'a> Interactor<'a> for SpitInteractor<'a> {
             fs::create_dir_all(outter_target_path.parent().unwrap())?;
         }
 
-        fs::copy(
-            &paths.compartment_full_path(chest),
-            outter_target_path,
-        )?;
+        fs::copy(&paths.compartment_full_path(chest), outter_target_path)?;
 
-        Ok(Box::new("<talk>Yuck! There we go... Can I bite something now?<r>"))
+        Ok(Box::new(
+            "<talk>Yuck! There we go... Can I bite something now?<r>",
+        ))
     }
 }
