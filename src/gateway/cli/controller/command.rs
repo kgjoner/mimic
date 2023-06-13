@@ -74,6 +74,7 @@ impl Command {
             mods: PathMods {
                 from: self.flags.get("from"),
                 to: self.flags.get("to"),
+                name: self.flags.get("name"),
             },
         })
     }

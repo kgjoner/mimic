@@ -24,7 +24,7 @@ impl<'a> Interactor<'a> for SpitInteractor<'a> {
         PathDto {
             chest,
             treasure_name_or_path,
-            mods: PathMods { from, to },
+            mods: PathMods { from, to, name:_ },
         }: PathDto,
     ) -> Result<Box<dyn Display>, Box<dyn Error>> {
         let records = self.treasure_records_repo.get_records(chest)?;
