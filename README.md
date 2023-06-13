@@ -38,7 +38,7 @@ mimic spit src/components/button
 Each file or folder swallowed by Mimic is called a treasure. To avoid typing a long path each time you need to get it or to update it, you may let Mimic memorize treasure names.
 
 ```
-mimic treasure name ui/button src/components/button
+mimic treasure memo ui/button src/components/button
 ```
 
 Now, you can run `swallow` and `spit` commands with the treasure name instead:

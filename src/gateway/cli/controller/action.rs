@@ -46,14 +46,14 @@ SUB ACTIONS
 #[derive(Debug)]
 pub enum TreasureSubAction {
     List,
-    Name,
+    Memorize,
 }
 
 impl TreasureSubAction {
     fn try_new(subaction_str: &str) -> Result<TreasureSubAction, NormalizedError> {
         match &subaction_str[..] {
             "list" => Ok(TreasureSubAction::List),
-            "name" => Ok(TreasureSubAction::Name),
+            "memorize" | "memo" => Ok(TreasureSubAction::Memorize),
             unknown_subaction => Err(NormalizedError::UnknownAction(get_error_tip_msg(
                 Some(unknown_subaction),
                 Some("treasure"),

@@ -4,7 +4,7 @@ use crate::{
 };
 use std::{error::Error, fmt::Display, fs, path::Path};
 
-use super::NameTreasureInteractor;
+use super::MemorizeTreasureInteractor;
 
 pub struct SwallowInteractor<'a> {
     repos: &'a Repos,
@@ -47,7 +47,7 @@ impl<'a> Interactor<'a> for SwallowInteractor<'a> {
         }
 
         if let Some(name) = mods.name {
-            let interactor = NameTreasureInteractor::new(&self.repos);
+            let interactor = MemorizeTreasureInteractor::new(&self.repos);
             interactor.execute(TreasureDto::new(
                 chest,
                 name,

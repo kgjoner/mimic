@@ -20,7 +20,7 @@ COMMANDS:
     --from <u>path<r>: specify a different path from where to find the treasure
 
 ==============================================================================
-  treasure name <u>treasure_name<r> <u>treasure_path<r>
+  treasure memorize <u>treasure_name<r> <u>treasure_path<r>, treasure memo <u>treasure_name<r> <u>treasure_path<r>
 ------------------------------------------------------------------------------
     Make Mimic memorize the <u>treasure_path<r> as being <u>treasure_name<r>. From now on you will be
     able to use the name instead of the path in swallow and spit commands.

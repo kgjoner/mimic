@@ -6,7 +6,7 @@ pub use presenter::{NormalizedError, NormalizedSuccess};
 
 use crate::{
     app::{
-        HelpInteractor, Interactor, ListTreasuresInteractor, NameTreasureInteractor,
+        HelpInteractor, Interactor, ListTreasuresInteractor, MemorizeTreasureInteractor,
         SpitInteractor, SwallowInteractor,
     },
     domain::{Repos, TreasureRecordsRepoInterface},
@@ -44,8 +44,8 @@ impl CliGateway {
                 SpitInteractor::new(&self.repos),
                 command.to_path_dto(&self.config)?,
             ),
-            Action::Treasure(TreasureSubAction::Name) => self.execute(
-                NameTreasureInteractor::new(&self.repos),
+            Action::Treasure(TreasureSubAction::Memorize) => self.execute(
+                MemorizeTreasureInteractor::new(&self.repos),
                 command.to_treasure_dto(&self.config)?,
             ),
             Action::Treasure(TreasureSubAction::List) => self.execute(

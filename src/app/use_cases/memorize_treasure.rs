@@ -4,19 +4,19 @@ use crate::{
 };
 use std::{error::Error, fmt::Display};
 
-pub struct NameTreasureInteractor<'a> {
+pub struct MemorizeTreasureInteractor<'a> {
     treasure_records_repo: &'a Box<dyn TreasureRecordsRepoInterface>,
 }
 
-impl<'a> NameTreasureInteractor<'a> {
-    pub fn new(repos: &'a Repos) -> NameTreasureInteractor {
-        NameTreasureInteractor {
+impl<'a> MemorizeTreasureInteractor<'a> {
+    pub fn new(repos: &'a Repos) -> MemorizeTreasureInteractor {
+        MemorizeTreasureInteractor {
             treasure_records_repo: &repos.treasure_records,
         }
     }
 }
 
-impl<'a> Interactor<'a> for NameTreasureInteractor<'a> {
+impl<'a> Interactor<'a> for MemorizeTreasureInteractor<'a> {
     type Input = TreasureDto<'a>;
 
     fn execute(&self, input: TreasureDto) -> Result<Box<dyn Display>, Box<dyn Error>> {
