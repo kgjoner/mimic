@@ -1,6 +1,6 @@
 use super::{Action, Config, Flags};
 use crate::{
-    app::{HelpDto, PathDto, PathMods, TreasureDto, TreasureMods},
+    app::{HelpDto, PathDto, TreasureDto},
     gateway::cli::presenter::NormalizedError,
 };
 
@@ -56,9 +56,7 @@ impl Command {
     pub fn to_help_dto<'a>(&'a self) -> Result<HelpDto, NormalizedError> {
         let queried_command = self.action_args.get(0);
 
-        Ok(HelpDto {
-            queried_command: queried_command.map(|x| &**x),
-        })
+        Ok(HelpDto::new(queried_command.map(|x| &**x)))
     }
 
     pub fn to_path_dto<'a>(&'a self, config: &'a Config) -> Result<PathDto, NormalizedError> {
@@ -68,15 +66,13 @@ impl Command {
             return Err(NormalizedError::RequiredActionArg(None));
         }
 
-        Ok(PathDto {
-            chest: &config.chest,
-            treasure_name_or_path: treasure_name_or_path.unwrap(),
-            mods: PathMods {
-                from: self.flags.get("from"),
-                to: self.flags.get("to"),
-                name: self.flags.get("name"),
-            },
-        })
+        Ok(PathDto::new(
+            &config.chest,
+            treasure_name_or_path.unwrap(),
+            self.flags.get("from"),
+            self.flags.get("to"),
+            self.flags.get("name"),
+        ))
     }
 
     pub fn to_treasure_dto<'a>(
@@ -90,13 +86,11 @@ impl Command {
             return Err(NormalizedError::RequiredActionArg(None));
         }
 
-        Ok(TreasureDto {
-            chest: &config.chest,
-            treasure_name: treasure_name.unwrap(),
-            treasure_path: treasure_path.unwrap(),
-            mods: TreasureMods {
-                outter_target_path: self.flags.get("outter"),
-            },
-        })
+        Ok(TreasureDto::new(
+            &config.chest,
+            treasure_name.unwrap(),
+            treasure_path.unwrap(),
+            self.flags.get("outter"),
+        ))
     }
 }

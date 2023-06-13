@@ -1,5 +1,5 @@
 use crate::{
-    app::{Interactor, PathDto, TreasureDto, TreasureMods},
+    app::{Interactor, PathDto, TreasureDto},
     domain::{Repos, TreasurePaths},
 };
 use std::{error::Error, fmt::Display, fs, path::Path};
@@ -48,14 +48,12 @@ impl<'a> Interactor<'a> for SwallowInteractor<'a> {
 
         if let Some(name) = mods.name {
             let interactor = NameTreasureInteractor::new(&self.repos);
-            interactor.execute(TreasureDto {
+            interactor.execute(TreasureDto::new(
                 chest,
-                treasure_name: name,
-                treasure_path: &paths.compartment_path,
-                mods: TreasureMods {
-                    outter_target_path: &Some(paths.outter_target_path.to_string()),
-                },
-            })?;
+                name,
+                &paths.compartment_path,
+                &Some(paths.outter_target_path.to_string()),
+            ))?;
         }
 
         let compartment_full_path = paths.compartment_full_path(chest);
