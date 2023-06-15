@@ -33,3 +33,9 @@ COMMANDS:
 ------------------------------------------------------------------------------
     List all treasure names memorized by Mimic with their paths. The first one is the path to the
     inner compartment; the second one is the outter path.
+
+==============================================================================
+  treasure forget <u>treasure_name<r>
+------------------------------------------------------------------------------
+    Make Mimic forget the <u>treasure_name<r>, as well their paths. You won't be able to use this name
+    in swallow and spit commands anymore.
