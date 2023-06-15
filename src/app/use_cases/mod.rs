@@ -14,6 +14,9 @@ pub use list_treasures::ListTreasuresInteractor;
 mod memorize_treasure;
 pub use memorize_treasure::MemorizeTreasureInteractor;
 
+mod forget_treasure;
+pub use forget_treasure::ForgetTreasureInteractor;
+
 mod spit;
 pub use spit::SpitInteractor;
 

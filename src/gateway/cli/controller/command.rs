@@ -1,6 +1,6 @@
 use super::{Action, Config, Flags};
 use crate::{
-    app::{HelpDto, PathDto, TreasureDto},
+    app::{HelpDto, PathDto, SimpleTreasureDto, TreasureDto},
     gateway::cli::presenter::NormalizedError,
 };
 
@@ -91,6 +91,22 @@ impl Command {
             treasure_name.unwrap(),
             treasure_path.unwrap(),
             self.flags.get("outter"),
+        ))
+    }
+
+    pub fn to_simple_treasure_dto<'a>(
+        &'a self,
+        config: &'a Config,
+    ) -> Result<SimpleTreasureDto, NormalizedError> {
+        let treasure_name = self.action_args.get(0);
+
+        if treasure_name == None {
+            return Err(NormalizedError::RequiredActionArg(None));
+        }
+
+        Ok(SimpleTreasureDto::new(
+            &config.chest,
+            treasure_name.unwrap(),
         ))
     }
 }

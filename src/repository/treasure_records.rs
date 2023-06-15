@@ -14,6 +14,27 @@ impl TreasureRecordsRepo {
     fn get_treasure_file_path(&self) -> String {
         format!("{}/{BASE_PATH}/{TREASURES_FILE}", env::var("HOME").unwrap())
     }
+
+    fn write_on_treasure_file(&self, records: TreasureRecords) -> Result<(), Box<dyn Error>> {
+        let content = records.into_string();
+
+        let treasure_file_path = self.get_treasure_file_path();
+        let path = Path::new(&treasure_file_path);
+        let path_exists = path.try_exists().unwrap_or(false);
+        let mut file = if path_exists {
+            fs::OpenOptions::new()
+                .write(true)
+                .truncate(true)
+                .open(treasure_file_path)?
+        } else {
+            fs::create_dir_all(path.parent().unwrap())?;
+            fs::File::create(treasure_file_path)?
+        };
+
+        file.write_all(content.as_bytes())?;
+
+        Ok(())
+    }
 }
 
 impl TreasureRecordsRepoInterface for TreasureRecordsRepo {
@@ -38,27 +59,16 @@ impl TreasureRecordsRepoInterface for TreasureRecordsRepo {
         compartment_path: String,
         outter_target_path: Option<String>,
     ) -> Result<(), Box<dyn Error>> {
-        let mut records = self
-            .get_records(chest)
-            .unwrap_or(TreasureRecords::from_str(chest, ""));
+        let mut records = self.get_records(chest)?;
         records.upsert(treasure_name, compartment_path, outter_target_path);
 
-        let content = records.into_string();
+        self.write_on_treasure_file(records)
+    }
 
-        let treasure_file_path = self.get_treasure_file_path();
-        let path = Path::new(&treasure_file_path);
-        let path_exists = path.try_exists().unwrap_or(false);
-        let mut file = if path_exists {
-            fs::OpenOptions::new()
-                .write(true)
-                .open(treasure_file_path)?
-        } else {
-            fs::create_dir_all(path.parent().unwrap())?;
-            fs::File::create(treasure_file_path)?
-        };
+    fn remove_record(&self, chest: &str, treasure_name: String) -> Result<(), Box<dyn Error>> {
+        let mut records = self.get_records(chest)?;
+        records.remove(treasure_name);
 
-        file.write_all(content.as_bytes())?;
-
-        Ok(())
+        self.write_on_treasure_file(records)
     }
 }

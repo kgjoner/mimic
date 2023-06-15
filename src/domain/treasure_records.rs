@@ -45,6 +45,10 @@ impl TreasureRecords {
         );
     }
 
+    pub fn remove(&mut self, treasure_name: String) {
+        self.paths_map.remove(&treasure_name);
+    }
+
     pub fn into_string(&self) -> String {
         let mut content = String::new();
         for (treasure_name, paths) in self.paths_map.iter() {
@@ -128,4 +132,5 @@ pub trait TreasureRecordsRepoInterface {
         compartment_path: String,
         outter_path: Option<String>,
     ) -> Result<(), Box<dyn Error>>;
+    fn remove_record(&self, chest: &str, treasure_name: String) -> Result<(), Box<dyn Error>>;
 }

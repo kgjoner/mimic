@@ -62,3 +62,17 @@ impl<'a> TreasureDto<'a> {
 pub struct TreasureMods<'a> {
     pub outter_target_path: &'a Option<String>,
 }
+
+pub struct SimpleTreasureDto<'a> {
+    pub chest: &'a str,
+    pub treasure_name: &'a str,
+}
+
+impl<'a> SimpleTreasureDto<'a> {
+    pub fn new(chest: &'a str, treasure_name: &'a str) -> SimpleTreasureDto<'a> {
+        SimpleTreasureDto {
+            chest,
+            treasure_name,
+        }
+    }
+}

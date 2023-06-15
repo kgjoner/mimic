@@ -47,6 +47,7 @@ SUB ACTIONS
 pub enum TreasureSubAction {
     List,
     Memorize,
+    Forget,
 }
 
 impl TreasureSubAction {
@@ -54,6 +55,7 @@ impl TreasureSubAction {
         match &subaction_str[..] {
             "list" => Ok(TreasureSubAction::List),
             "memorize" | "memo" => Ok(TreasureSubAction::Memorize),
+            "forget" => Ok(TreasureSubAction::Forget),
             unknown_subaction => Err(NormalizedError::UnknownAction(get_error_tip_msg(
                 Some(unknown_subaction),
                 Some("treasure"),
