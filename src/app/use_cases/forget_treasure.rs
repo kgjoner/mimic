@@ -29,7 +29,7 @@ impl<'a> Interactor<'a> for ForgetTreasureInteractor<'a> {
             .remove_record(chest, treasure_name.to_string())?;
 
         let result =
-            format!("<talk>Uhm... I used to know it, but I dunno it anymore!<r>");
+            format!("<talk>Uhm... How was it called? but I dunno it anymore!<r>");
         Ok(Box::new(result))
     }
 }
