@@ -6,8 +6,8 @@ pub use presenter::{NormalizedError, NormalizedSuccess};
 
 use crate::{
     app::{
-        ForgetTreasureInteractor, HelpInteractor, Interactor, ListTreasuresInteractor,
-        MemorizeTreasureInteractor, SpitInteractor, SwallowInteractor,
+        DestroyInteractor, ForgetTreasureInteractor, HelpInteractor, Interactor,
+        ListTreasuresInteractor, MemorizeTreasureInteractor, SpitInteractor, SwallowInteractor,
     },
     domain::{Repos, TreasureRecordsRepoInterface},
 };
@@ -35,6 +35,10 @@ impl CliGateway {
         let command = Command::parse(args)?;
 
         match command.action {
+            Action::Destroy => self.execute(
+                DestroyInteractor::new(&self.repos),
+                command.to_simple_treasure_dto(&self.config)?,
+            ),
             Action::Help => self.execute(HelpInteractor::new(), command.to_help_dto()?),
             Action::Swallow => self.execute(
                 SwallowInteractor::new(&self.repos),

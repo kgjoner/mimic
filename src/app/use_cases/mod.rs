@@ -22,3 +22,6 @@ pub use spit::SpitInteractor;
 
 mod swallow;
 pub use swallow::SwallowInteractor;
+
+mod destroy;
+pub use destroy::DestroyInteractor;

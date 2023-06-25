@@ -2,6 +2,7 @@ use crate::gateway::cli::presenter::NormalizedError;
 
 #[derive(Debug)]
 pub enum Action {
+    Destroy,
     Help,
     Swallow,
     Spit,
@@ -18,6 +19,7 @@ impl Action {
         }
 
         match &action_str.to_lowercase()[..] {
+            "destroy" => Ok(Action::Destroy),
             "help" => Ok(Action::Help),
             "swallow" | "swl" => Ok(Action::Swallow),
             "spit" | "spt" => Ok(Action::Spit),
